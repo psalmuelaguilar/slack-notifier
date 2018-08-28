@@ -110,9 +110,9 @@ Any key passed to the `post` method is posted to the webhook endpoint. Check out
 Setting an icon:
 
 ```ruby
-notifier.post text: "feeling spooky", icon_emoji: ":ghost:"
+notifier.post :text => "feeling spooky", icon_emoji: ":ghost:"
 # or
-notifier.post text: "feeling chimpy", icon_url: "http://static.mailchimp.com/web/favicon.png"
+notifier.post :text => "feeling chimpy", icon_url: "http://static.mailchimp.com/web/favicon.png"
 ```
 
 Adding attachments:
@@ -120,10 +120,10 @@ Adding attachments:
 ```ruby
 a_ok_note = {
   fallback: "Everything looks peachy",
-  text: "Everything looks peachy",
+  :text => "Everything looks peachy",
   color: "good"
 }
-notifier.post text: "with an attachment", attachments: [a_ok_note]
+notifier.post :text => "with an attachment", :attachments => [a_ok_note]
 ```
 
 
@@ -133,7 +133,7 @@ With the default HTTP client, you can send along options to customize its behavi
 
 ```ruby
 notifier = Slack::Notifier.new 'WEBHOOK_URL', http_options: { open_timeout: 5 }
-notifier.post text: "hello", http_options: { open_timeout: 10 }
+notifier.post :text => "hello", http_options: { open_timeout: 10 }
 ```
 
 **Note**: you should only send along options that [`Net::HTTP`](http://ruby-doc.org/stdlib-2.2.0/libdoc/net/http/rdoc/Net/HTTP.html) has as setters, otherwise the option will be ignored and show a warning.
@@ -175,7 +175,7 @@ It's also encouraged for any custom HTTP implementations to accept the `:http_op
 You can also set the http_client per-post if you need to special case certain pings.
 
 ```ruby
-notifier.post text: "hello", http_client: CustomClient
+notifier.post :text => "hello", http_client: CustomClient
 ```
 
 **Setting a No-Op client**
@@ -201,11 +201,11 @@ By default slack-notifier ships with middleware to format links in the message &
 
 ```ruby
 notifier = Slack::Notifier.new "WEBHOOK_URL" do
-  middleware format_message: { formats: [:html] }
+  middleware format_message: { :formats => [:html] }
 end
 # this example will *only* use the format_message middleware and only format :html links
 
-notifier.post text: "Hello <a href='http://example.com'>world</a>! [visit this](http://example.com)"
+notifier.post :text => "Hello <a href='http://example.com'>world</a>! [visit this](http://example.com)"
 # => will post "Hello <http://example.com|world>! [visit this](http://example.com)"
 ```
 
@@ -218,8 +218,8 @@ end
 # will run format_message then format_attachments with default options
 
 notifier = Slack::Notifier.new "WEBHOOK_URL" do
-  middleware format_message: { formats: [:html] },
-             format_attachments: { formats: [:markdown] }
+  middleware format_message: { :formats => [:html] },
+             format_:attachments => { :formats => [:markdown] }
 end
 # will run format_message w/ formats [:html] then format_attachments with formats [:markdown]
 ```
@@ -241,10 +241,10 @@ This simplifies the process of notifying users and rooms to messages. By adding 
 For example:
 
 ```ruby
-notifier.post text: "hello", at: :casper
+notifier.post :text => "hello", :at => :casper
 # => "<@casper> hello"
 
-notifier.post text: "hello", at: [:here, :waldo]
+notifier.post :text => "hello", :at => [:here, :waldo]
 # => "<!here> <@waldo> hello"
 ```
 
@@ -255,7 +255,7 @@ If the `channel` argument of a payload is an array this splits the payload to be
 For example:
 
 ```ruby
-notifier.post text: "hello", channel: ["default", "all_the_things"]
+notifier.post :text => "hello", channel: ["default", "all_the_things"]
 # => will post "hello" to the default and all_the_things channel
 ```
 

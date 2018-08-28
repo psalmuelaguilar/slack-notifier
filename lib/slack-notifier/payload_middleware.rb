@@ -16,9 +16,6 @@ module Slack
   end
 end
 
-require_relative "payload_middleware/stack"
-require_relative "payload_middleware/base"
-require_relative "payload_middleware/format_message"
-require_relative "payload_middleware/format_attachments"
-require_relative "payload_middleware/at"
-require_relative "payload_middleware/channels"
+%w(stack base format_message format_attachments at channels).each do |md|
+  require(File.expand_path("payload_middleware/#{md}", File.dirname(__FILE__)))
+end

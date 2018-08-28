@@ -6,7 +6,7 @@ module Slack
       class FormatMessage < Base
         middleware_name :format_message
 
-        options formats: %i[html markdown]
+        options :formats => [:html, :markdown]
 
         def call payload={}
           return payload unless payload[:text]

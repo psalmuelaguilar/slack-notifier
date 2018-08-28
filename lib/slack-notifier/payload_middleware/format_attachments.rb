@@ -6,7 +6,7 @@ module Slack
       class FormatAttachments < Base
         middleware_name :format_attachments
 
-        options formats: %i[html markdown]
+        options :formats => [:html, :markdown]
 
         def call payload={}
           payload = payload.dup

@@ -3,11 +3,12 @@
 require "uri"
 require "json"
 
-require_relative "slack-notifier/util/http_client"
-require_relative "slack-notifier/util/link_formatter"
-require_relative "slack-notifier/util/escape"
-require_relative "slack-notifier/payload_middleware"
-require_relative "slack-notifier/config"
+%w(http_client link_formatter escape).each do |util|
+  require(File.expand_path("slack-notifier/util/#{util}", File.dirname(__FILE__)))
+end
+require(File.expand_path("slack-notifier/payload_middleware", File.dirname(__FILE__)))
+require(File.expand_path("slack-notifier/config", File.dirname(__FILE__)))
+
 
 module Slack
   class Notifier

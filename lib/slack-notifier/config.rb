@@ -6,11 +6,11 @@ module Slack
       def initialize
         @http_client = Util::HTTPClient
         @defaults    = {}
-        @middleware  = %i[
-          format_message
-          format_attachments
-          at
-          channels
+        @middleware  = [
+          :format_message,
+          :format_attachments,
+          :at,
+          :channels
         ]
       end
 

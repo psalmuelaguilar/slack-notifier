@@ -2,37 +2,37 @@
 
 RSpec.describe Slack::Notifier::PayloadMiddleware::FormatAttachments do
   it "passes the text of attachments through linkformatter with options[:formats]" do
-    subject = described_class.new(:notifier, formats: [:html])
+    subject = described_class.new(:notifier, :formats => [:html])
     expect(Slack::Notifier::Util::LinkFormatter).to receive(:format)
-      .with("hello", formats: [:html])
-    subject.call(attachments: [{ text: "hello" }])
+      .with("hello", :formats => [:html])
+    subject.call(:attachments => [{ :text => "hello" }])
   end
 
   it "searches through string or symbol keys" do
     subject = described_class.new(:notifier)
     expect(Slack::Notifier::Util::LinkFormatter).to receive(:format)
-      .with("hello", formats: %i[html markdown])
+      .with("hello", :formats => [:html, :markdown])
     subject.call("attachments" => [{ "text" => "hello" }])
 
     subject = described_class.new(:notifier)
     expect(Slack::Notifier::Util::LinkFormatter).to receive(:format)
-      .with("hello", formats: %i[html markdown])
-    subject.call(attachments: [{ text: "hello" }])
+      .with("hello", :formats => [:html, :markdown])
+    subject.call(:attachments => [{ :text => "hello" }])
   end
 
   it "can handle a single attachment" do
     subject = described_class.new(:notifier)
     expect(Slack::Notifier::Util::LinkFormatter).to receive(:format)
-      .with("hello", formats: %i[html markdown])
-    subject.call(attachments: { text: "hello" })
+      .with("hello", :formats => [:html, :markdown])
+    subject.call(:attachments => { :text => "hello" })
   end
 
   it "wraps attachment into array if given as a single hash" do
     params = {
-      attachments: { text: "hello" }
+      :attachments => { :text => "hello" }
     }
     payload = {
-      attachments: [{ text: "hello" }]
+      :attachments => [{ :text => "hello" }]
     }
     subject = described_class.new(:notifier)
 

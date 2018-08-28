@@ -7,8 +7,8 @@
 - use `map` to return the array of responses instead of payload in `ping` & `post` [@yhatt #88]
 
 # 2.3.0
-- feat: add `channels` middleware to split payloads to ping multiple channels [#40]
-- feat: support any middleware splittin payload into an array to allow multiple payloads from a single process.
+- fe:at => add `channels` middleware to split payloads to ping multiple channels [#40]
+- fe:at => support any middleware splittin payload into an array to allow multiple payloads from a single process.
 
 # 2.2.2
 - fix wrapping of attachments passed as a hash

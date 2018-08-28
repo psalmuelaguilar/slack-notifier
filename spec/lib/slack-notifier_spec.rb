@@ -39,7 +39,7 @@ RSpec.describe Slack::Notifier do
   describe "#ping" do
     it "calls #post with the message as the text key in #post" do
       subject = described_class.new "http://example.com"
-      expect(subject).to receive(:post).with text: "message"
+      expect(subject).to receive(:post).with :text => "message"
 
       subject.ping "message"
     end
@@ -63,7 +63,7 @@ RSpec.describe Slack::Notifier do
         payload: '{"channel":"default","user":"rocket","text":"hello"}'
       )
 
-      subject.post text: "hello"
+      subject.post :text => "hello"
     end
 
     it "allows overriding the set defaults" do
@@ -74,7 +74,7 @@ RSpec.describe Slack::Notifier do
         payload: '{"channel":"new","user":"ship","text":"hello"}'
       )
 
-      subject.post text: "hello", channel: "new", user: "ship"
+      subject.post :text => "hello", channel: "new", user: "ship"
     end
 
     it "calls the middleware stack with the payload" do

@@ -26,11 +26,11 @@ module Slack
         end
 
         def call payload={}
-          result = stack.inject payload do |pld, middleware|
-            as_array(pld).flat_map do |p|
+          result = stack.inject(payload) { |pld, middleware|
+            as_array(pld).map do |p|
               middleware.call(p)
-            end
-          end
+            end.flatten
+          }
 
           as_array(result)
         end

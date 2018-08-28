@@ -136,15 +136,15 @@ RSpec.describe Slack::Notifier::Util::LinkFormatter do
 
     context "with a configured stack" do
       it "only formats html if html is the only item in formats" do
-        formatted = described_class.format("Hello World, enjoy [this](http://example.com)<a href='http://example2.com'>this2</a>.", formats: [:html])
+        formatted = described_class.format("Hello World, enjoy [this](http://example.com)<a href='http://example2.com'>this2</a>.", :formats => [:html])
         expect(formatted).to eq "Hello World, enjoy [this](http://example.com)<http://example2.com|this2>."
       end
       it "only formats markdown if markdown is the only item in formats" do
-        formatted = described_class.format("Hello World, enjoy [this](http://example.com)<a href='http://example2.com'>this2</a>.", formats: [:markdown])
+        formatted = described_class.format("Hello World, enjoy [this](http://example.com)<a href='http://example2.com'>this2</a>.", :formats => [:markdown])
         expect(formatted).to eq "Hello World, enjoy <http://example.com|this><a href='http://example2.com'>this2</a>."
       end
       it "doesn't format if formats is empty" do
-        formatted = described_class.format("Hello World, enjoy [this](http://example.com)<a href='http://example2.com'>this2</a>.", formats: [])
+        formatted = described_class.format("Hello World, enjoy [this](http://example.com)<a href='http://example2.com'>this2</a>.", :formats => [])
         expect(formatted).to eq "Hello World, enjoy [this](http://example.com)<a href='http://example2.com'>this2</a>."
       end
     end
